@@ -1,0 +1,39 @@
+AllCops:
+  TargetRubyVersion: 2.1
+  Exclude:
+    - bin/*
+    - Rakefile
+    - gringotts_client.gemspec
+
+Metrics/ModuleLength:
+  Exclude:
+    - spec/**/*
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - spec/**/*
+
+Documentation:
+    Enabled: false
+
+# Style/SpaceBeforeFirstArg:
+#   Enabled: false
+
+# Style/TrailingCommaInArguments:
+#   Enabled: false
+
+# Style/TrailingCommaInLiteral:
+#   Enabled: false
+
+Style/BlockLength:
+  Max: 15
+  Exclude:
+    - spec/**/*
+
+Style/MethodLength:
+  Max: 15
+  Exclude:
+    - spec/**/*

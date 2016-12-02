@@ -1,0 +1,10 @@
+require 'rabbitmq_procedure_call/version'
+require 'json'
+require 'bunny'
+require 'securerandom'
+require 'timeout'
+
+require 'rabbitmq_procedure_call/route_name_generator'
+require 'rabbitmq_procedure_call/common_methods'
+require 'rabbitmq_procedure_call/caller'
+require 'rabbitmq_procedure_call/procedure'

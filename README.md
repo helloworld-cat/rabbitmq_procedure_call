@@ -1,9 +1,5 @@
 # RabbitmqProcedureCall
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rabbitmq_procedure_call`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,15 +18,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Define a procedure
 
-## Development
+#### Simple class
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+class HelloProcedure < RabbitmqProcedureCall::Procedure
+  def perform(params={})
+    name = params.fetch('name', 'World')
+    hello_msg = "Hello #{name} !"
+    respond(msg: hello_msg)
+  end
+end
+HelloProcedure.new(:say_hello).start
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### Or use block
+```ruby
+RabbitmqProcedureCall::Procedure.define(:say_hello) do |procedure|
+  name = procedure.params.fetch('name', 'World')
+  hello_msg = "Hello #{name} !"
+
+  procedure.respond(msg: hello_msg)
+end
+```
+
+### Use procedure (caller)
+
+```ruby
+say_hello = RabbitmqProcedureCall::Caller.new(:say_hello, timeout = 4)
+response = say_hello.call(name: 'Foo')
+puts response['msg']
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rabbitmq_procedure_call.
+Bug reports and pull requests are welcome on GitHub at https://github.com/pagedegeek/rabbitmq_procedure_call.
 

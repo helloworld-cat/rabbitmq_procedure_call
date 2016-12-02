@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe RabbitmqProcedureCall::RouteNameGenerator do
   describe '.call' do
-    let(:uuid) { '<some-uuid>'}
+    let(:uuid) { '<some-uuid>' }
     before do
       class_double('SecureRandom', uuid: uuid).as_stubbed_const
     end
@@ -14,7 +14,7 @@ RSpec.describe RabbitmqProcedureCall::RouteNameGenerator do
 
     context 'with prefix' do
       subject { described_class.call(prefix) }
-      let(:prefix) { '<prefix>'}
+      let(:prefix) { '<prefix>' }
       it { expect(subject).to eq("#{prefix}-#{uuid}") }
     end
   end

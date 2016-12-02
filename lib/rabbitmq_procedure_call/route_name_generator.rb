@@ -1,7 +1,7 @@
 module RabbitmqProcedureCall
   # Generate an uniq route name
   class RouteNameGenerator
-    def self.call(prefix='')
+    def self.call(prefix = '')
       prefix.strip!
       uuid = SecureRandom.uuid
       if prefix == ''

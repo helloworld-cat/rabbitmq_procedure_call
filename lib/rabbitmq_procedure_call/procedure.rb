@@ -16,10 +16,7 @@ module RabbitmqProcedureCall
 
     def start
       setup_conn
-      puts "Listen calls on: #{@queue_name}"
       @queue.subscribe(block: true) do |_delivery_info, props, body|
-        puts "Received: #{body}"
-
         @reply_to = props[:headers]['reply_to']
         @params   = unserialize body
 
@@ -34,7 +31,6 @@ module RabbitmqProcedureCall
     end
 
     def respond(params)
-      puts "publish to #{@reply_to}: #{params}"
       response_body = serialize params
       @exchange.publish response_body, routing_key: @reply_to
     end

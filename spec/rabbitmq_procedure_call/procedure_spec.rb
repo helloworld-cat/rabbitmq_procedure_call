@@ -3,30 +3,16 @@ require 'spec_helper'
 RSpec.describe RabbitmqProcedureCall::Procedure do
   include_context 'bunny double'
 
-  let(:reply_to) { 'respond_queue_name' }
-  let(:method_name) { 'say_hello' }
-  let(:proc) { double(:proc) }
-
-  let(:delivery_info) do
-    {}
+  before do
+    allow(queue).to receive(:subscribe).and_return(nil)
   end
+
+  let(:reply_to) { 'respond_queue_name' }
+  let(:proc) { double(:proc) }
   let(:props) do
     {
       headers: { 'reply_to' => reply_to }
     }
-  end
-  let(:body) do
-    JSON.dump(msg: 'foo')
-  end
-
-  let(:queue) do
-    q = double(:queue)
-    allow(q).to receive(:bind).with(exchange, routing_key: method_name)
-    allow(q).to receive(:subscribe).and_return nil
-    # .with(block: true) do |&block|
-    #   block.call(delivery_info, props, body)
-    # end
-    q
   end
 
   describe '#initialize' do

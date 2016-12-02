@@ -9,7 +9,7 @@ module RabbitmqProcedureCall
     def unserialize(raw_data)
       JSON.parse raw_data
     end
-    
+
     def exchange_name
       'rabbitmq-procedure-call'
     end

@@ -1,4 +1,5 @@
 # RabbitmqProcedureCall
+foo
 
 ## Installation
 
